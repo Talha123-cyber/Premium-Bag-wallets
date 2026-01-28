@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Products | BagX</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">Bag<span>X</span></div>
+  <nav>
+     <a class="active" href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  </nav>
+</header>
+
+<section class="products">
+  <h2>Our Collection</h2>
+
+  <!-- Filter & Sort -->
+  <div class="filter-sort">
+    <select id="categoryFilter">
+      <option value="all">All Products</option>
+      <option value="bag">Bags</option>
+      <option value="wallet">Wallets</option>
+    </select>
+
+    <select id="sortPrice">
+      <option value="default">Sort by Price</option>
+      <option value="low">Low to High</option>
+      <option value="high">High to Low</option>
+    </select>
+  </div>
+
+  <div class="product-grid" id="productGrid">
+    <div class="card" data-category="bag" data-price="120">
+      <img src="images/images.jpg" alt="Leather Backpack">
+      <h3>Leather Backpack</h3>
+      <p>$199</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="wallet" data-price="45">
+      <img src="images/download.jpg" alt="Classic Wallet">
+      <h3>Classic Wallet</h3>
+      <p>$45</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="bag" data-price="150">
+      <img src="images/travel.jpg" alt="Travel Bag">
+      <h3>Travel Bag</h3>
+      <p>$355</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="wallet" data-price="60">
+      <img src="images/luxary.jpg" alt="Luxury Wallet">
+      <h3>Luxury Wallet</h3>
+      <p>$99</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="bag" data-price="200">
+      <img src="images/bag.jpg" alt="Office Bag">
+      <h3>Office Bag</h3>
+      <p>$200</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+     <div class="card" data-category="bag" data-price="200">
+      <img src="images/HAND.jpg" alt="Office Bag">
+      <h3>Hand Bag</h3>
+      <p>$250</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+     <div class="card" data-category="bag" data-price="200">
+      <img src="images/duffels.jpg" alt="Office Bag">
+      <h3>Duffel Bag</h3>
+      <p>$499</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+     <div class="card" data-category="bag" data-price="200">
+      <img src="images/sling.jpg" alt="Office Bag">
+      <h3>sling Bag</h3>
+      <p>$85</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+
+     <div class="card" data-category="bag" data-price="200">
+      <img src="images/school.jpg" alt="Office Bag">
+      <h3>School Bag</h3>
+      <p>$130</p>
+      <div class="card-buttons">
+        <button class="add-cart">Add to Cart</button>
+        <button class="quick-view">Quick View</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 BagX. All Rights Reserved</p>
+</footer>
+
+<!-- Filter & Sort JS -->
+<script>
+const categoryFilter = document.getElementById('categoryFilter');
+const sortPrice = document.getElementById('sortPrice');
+const productGrid = document.getElementById('productGrid');
+
+categoryFilter.addEventListener('change', filterAndSort);
+sortPrice.addEventListener('change', filterAndSort);
+
+function filterAndSort() {
+  let category = categoryFilter.value;
+  let sort = sortPrice.value;
+
+  let cards = Array.from(productGrid.children);
+
+  // Filter
+  cards.forEach(card => {
+    if(category === 'all' || card.dataset.category === category){
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Sort
+  let visibleCards = cards.filter(card => card.style.display === 'block');
+  visibleCards.sort((a,b) => {
+    let priceA = parseFloat(a.dataset.price);
+    let priceB = parseFloat(b.dataset.price);
+    if(sort === 'low') return priceA - priceB;
+    if(sort === 'high') return priceB - priceA;
+    return 0;
+  });
+
+  visibleCards.forEach(card => productGrid.appendChild(card));
+}
+</script>
+
+</body>
+</html>
